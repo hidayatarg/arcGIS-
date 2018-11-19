@@ -8,27 +8,40 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
     <link rel="stylesheet" href="main.css">
     <script src="https://js.arcgis.com/4.9/"></script>
+   
+</head>
+
+<body>
+    <button id="satellite">Satellite Map</button>
+    <div id="viewDiv"></div>
+
     <script>
-var map, view;
+        var map1, mapview;
+        var map2;
         require([
             "esri/Map",
             "esri/views/MapView"
         ], function (Map, MapView) {
-            map = new Map({
+            map1 = new Map({
                 basemap: "streets"
             });
-            view = new MapView({
+
+            map2 = new Map({
+                basemap: "satellite"
+            });
+            mapview = new MapView({
                 container: "viewDiv",  // Reference to the scene div created in step 5
-                map: map,  // Reference to the map object created before the scene
+                map: map1,  // Reference to the map object created before the scene
                 zoom: 4,  // Sets zoom level based on level of detail (LOD)
                 center: [42, 38]  // Sets center point of view using longitude,latitude
             });
         });
+
+        // event
+        document.getElementById("satellite").addEventListener("click", function () {
+           // alert("click event happened");]
+           mapview.map=map2;
+        });
     </script>
-</head>
-
-<body>
-    <div id="viewDiv"></div>
 </body>
-
 </html>
