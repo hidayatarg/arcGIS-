@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Intro to MapView - Create a 2D map</title>   
+    <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://js.arcgis.com/4.9/"></script>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView"
+        ], function (Map, MapView) {
+            var map = new Map({
+                basemap: "streets"
+            });
+            var view = new MapView({
+                container: "viewDiv",  // Reference to the scene div created in step 5
+                map: map,  // Reference to the map object created before the scene
+                zoom: 4,  // Sets zoom level based on level of detail (LOD)
+                center: [42, 38]  // Sets center point of view using longitude,latitude
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+</body>
+
+</html>
