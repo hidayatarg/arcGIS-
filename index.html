@@ -20,8 +20,9 @@
         var map2;
         require([
             "esri/Map",
-            "esri/views/MapView"
-        ], function (Map, MapView) {
+            "esri/views/MapView",
+            "esri/views/SceneView"
+        ], function (Map, MapView, SceneView) {
             map1 = new Map({
                 basemap: "streets"
             });
@@ -29,12 +30,21 @@
             map2 = new Map({
                 basemap: "satellite"
             });
-            mapview = new MapView({
+            
+            // gives a 3d view
+            sceneview=new SceneView({
                 container: "viewDiv",  // Reference to the scene div created in step 5
                 map: map1,  // Reference to the map object created before the scene
                 zoom: 4,  // Sets zoom level based on level of detail (LOD)
                 center: [42, 38]  // Sets center point of view using longitude,latitude
             });
+            /*
+            mapview = new MapView({
+                container: "viewDiv",  // Reference to the scene div created in step 5
+                map: map1,  // Reference to the map object created before the scene
+                zoom: 4,  // Sets zoom level based on level of detail (LOD)
+                center: [42, 38]  // Sets center point of view using longitude,latitude
+            });*/
         });
 
         // event
