@@ -4,54 +4,79 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Intro to MapView - Create a 2D map</title>   
+    <title>Intro to MapView - Create a 2D map</title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
     <link rel="stylesheet" href="main.css">
     <script src="https://js.arcgis.com/4.9/"></script>
-   
+
 </head>
 
 <body>
     <button id="satellite">Satellite Map</button>
+    <button id="street">Street Map</button>
+    <button id="topo">Topo Map</button>
+    <button id="changeMap">Change Map</button>
     <div id="viewDiv"></div>
 
     <script>
         var map1, mapview;
         var map2;
-        require([
-            "esri/Map",
-            "esri/views/MapView",
-            "esri/views/SceneView"
-        ], function (Map, MapView, SceneView) {
-            map1 = new Map({
-                basemap: "streets"
-            });
+        var map3;
+        require(["esri/Map", "esri/views/MapView", "esri/views/SceneView"],
+            function (Map, MapView, SceneView) {
+                map1 = new Map({
+                    basemap: "streets"
+                });
+                // Option of the map
 
-            map2 = new Map({
-                basemap: "satellite"
+
+                var viewOptions = {
+                    container: "viewDiv",  // Reference to the scene div created in step 5
+                    map: map1,  // Reference to the map object created before the scene
+                    zoom: 4,  // Sets zoom level based on level of detail 
+                    center: [42, 38]  // Sets center point of view using longitude,latitude
+                };
+                map2 = new Map({
+                    basemap: "satellite"
+                });
+
+                map3 = new Map({
+                    basemap: "topo"
+                });
+                // gives a 3d view
+                sceneview = new SceneView(viewOptions);
+                /*
+                mapview = new MapView({
+                    container: "viewDiv",  // Reference to the scene div created in step 5
+                    map: map1,  // Reference to the map object created before the scene
+                    zoom: 4,  // Sets zoom level based on level of detail (LOD)
+                    center: [42, 38]  // Sets center point of view using longitude,latitude
+                });*/
             });
-            
-            // gives a 3d view
-            sceneview=new SceneView({
-                container: "viewDiv",  // Reference to the scene div created in step 5
-                map: map1,  // Reference to the map object created before the scene
-                zoom: 4,  // Sets zoom level based on level of detail (LOD)
-                center: [42, 38]  // Sets center point of view using longitude,latitude
-            });
-            /*
-            mapview = new MapView({
-                container: "viewDiv",  // Reference to the scene div created in step 5
-                map: map1,  // Reference to the map object created before the scene
-                zoom: 4,  // Sets zoom level based on level of detail (LOD)
-                center: [42, 38]  // Sets center point of view using longitude,latitude
-            });*/
-        });
 
         // event
         document.getElementById("satellite").addEventListener("click", function () {
-           // alert("click event happened");]
-           mapview.map=map2;
+            // alert("click event happened");]
+            //mapview.map=map2;
+            sceneview.map = map2;
+        });
+
+        document.getElementById("street").addEventListener("click", function () {
+            sceneview.map = map1;
+        });
+        document.getElementById("topo").addEventListener("click", function () {
+            sceneview.map = map3;
+        });
+document.getElementById("changeMap").addEventListener("click", function () {
+
+            if (sceneview.map === map1)
+                sceneview.map = map2;
+            else if (sceneview.map === map2)
+                sceneview.map = map3;
+            else 
+                sceneview.map = map1;
         });
     </script>
 </body>
+
 </html>
